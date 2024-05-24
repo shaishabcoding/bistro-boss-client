@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import usePrivateClient from "../../../hooks/usePrivateClient";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
 const AllUsers = () => {
   const privateClient = usePrivateClient();
@@ -16,25 +17,32 @@ const AllUsers = () => {
         <h2 className="text-3xl">All Users</h2>
         <h2 className="text-3xl">Total Users : {users.length}</h2>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto w-full">
         <table className="table table-zebra w-full">
-          {/* head */}
           <thead>
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
-            {users.map((user) => (
+            {users.map((user, idx) => (
               <tr key={user._id}>
-                <th>1</th>
-                <td>Cy Ganderton</td>
-                <td>Quality Control Specialist</td>
-                <td>Blue</td>
+                <th>{idx + 1}</th>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.role ?? "User"}</td>
+                <td className="flex gap-3 justify-evenly">
+                  <button className="btn btn-sm btn-error text-white">
+                    <FaTrashAlt></FaTrashAlt>
+                  </button>
+                  <button className="btn btn-sm btn-info text-white">
+                    <FaEdit></FaEdit>
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
